@@ -299,7 +299,7 @@ void TextUI::drawui()
 		if( ic->srcAddr().GetType() == 6 )
 			row--; 
 
-		ipOut << "SourceIP: '" << ic->srcAddr().ptr() << "', SourcePort: " << ic->srcPort() << ", RemoteIP: '" << ic->dstAddr().ptr() << "', RemotePort: " << ic->dstPort();
+		ipOut << "SourceIP: '" << ic->srcAddr().ptr() << "', SourcePort: " << ic->srcPort() << ", TargetIP: '" << ic->dstAddr().ptr() << "', TargetPort: " << ic->dstPort();
 
 		
 		move(row,45);
@@ -356,9 +356,12 @@ void TextUI::drawui()
 		row++;
 
 		//end of script end the JSON box
-		ipOut << "}}";
+		ipOut << "},";
 
 	}
+
+	ipOut << " {}";
+	ipOut.close();
 
 	attron(A_REVERSE);
 
@@ -377,8 +380,6 @@ void TextUI::drawui()
 		printw("Connections %d-%d of %d",doffset+1,ic_i,container->numConnections());
 	else 
 		printw("Connections 0-0 of 0");
-
-	ipOut.close();
 
 	move(bottom-1,46);
 	if( paused==true )
