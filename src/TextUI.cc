@@ -299,25 +299,30 @@ void TextUI::drawui()
 		if( ic->srcAddr().GetType() == 6 )
 			row--; 
 
-		ipOut << "Source: " << ic->srcAddr().ptr() << ":" << ic->srcPort();
+		ipOut << "SourceIP: '" << ic->srcAddr().ptr() << "', SourcePort: " << ic->srcPort();
 
-		ipOut.close();
-
+		
 		move(row,45);
 		printw("             ");
 		move(row,45);
 		if( ic->getState() == TCP_STATE_SYN_SYNACK )
 			printw("SYN_SENT");
+			ipOut << ", ConnectionState: 'SYN_SENT'";
 		else if( ic->getState() == TCP_STATE_SYNACK_ACK )
 			printw("SYN|ACK-ACK");
+			ipOut << ", ConnectionState: 'SYNACK_ACK'";
 		else if( ic->getState() == TCP_STATE_UP )
 			printw("ESTABLISHED");
+			ipOut << ", ConnectionState: 'ESTABLISHED'";
 		else if( ic->getState() == TCP_STATE_FIN_FINACK )
 			printw("CLOSING");
+			ipOut << ", ConnectionState: 'CLOSING'";
 		else if( ic->getState() == TCP_STATE_CLOSED )
 			printw("CLOSED");
+			ipOut << ", ConnectionState: 'CLOSED'";
 		else if( ic->getState() == TCP_STATE_RESET )
 			printw("RESET");
+			ipOut << ", ConnectionState: 'RESET'";
 
 		move(row,58);
 		if( ic->getIdleSeconds() < 60 )
@@ -410,6 +415,10 @@ void TextUI::drawui()
 
 	attroff(A_REVERSE);
 	refresh();
+
+	ipOut.close();
+
+
 }
 
 // display the speed with the right format
