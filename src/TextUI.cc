@@ -272,7 +272,7 @@ void TextUI::drawui()
 	if( sort_type != SORT_UN ) 
 		i->sort( sort_type );
 
-	ipOut << "{ activeConnections: { ";
+	ipOut << "{ 'activeConnections' : { ";
 
 	unsigned int ic_i=0; // for scrolling
 	while( TCPConnection *ic=i->getNext() )
