@@ -301,7 +301,7 @@ void TextUI::drawui()
 		if( ic->srcAddr().GetType() == 6 )
 			row--; 
 
-		ipOut << "'SourceIP': '" << ic->srcAddr().ptr() << "', 'SourcePort': " << ic->srcPort() << ", 'TargetIP': '" << ic->dstAddr().ptr() << "', 'TargetPort': " << ic->dstPort();
+		ipOut << "'SourceIP': '" << ic->srcAddr().ptr() << "', 'SourcePort': '" << ic->srcPort() << "', 'TargetIP': '" << ic->dstAddr().ptr() << "', 'TargetPort': '" << ic->dstPort() << "'";
 
 		
 		move(row,45);
