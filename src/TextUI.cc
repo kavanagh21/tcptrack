@@ -305,24 +305,30 @@ void TextUI::drawui()
 		move(row,45);
 		printw("             ");
 		move(row,45);
-		if( ic->getState() == TCP_STATE_SYN_SYNACK )
+		if( ic->getState() == TCP_STATE_SYN_SYNACK ) {
 			printw("SYN_SENT");
 			ipOut << ", ConnectionState: 'SYN_SENT'";
-		else if( ic->getState() == TCP_STATE_SYNACK_ACK )
+		}
+		else if( ic->getState() == TCP_STATE_SYNACK_ACK ) {
 			printw("SYN|ACK-ACK");
 			ipOut << ", ConnectionState: 'SYNACK_ACK'";
-		else if( ic->getState() == TCP_STATE_UP )
+		}
+		else if( ic->getState() == TCP_STATE_UP ) {
 			printw("ESTABLISHED");
 			ipOut << ", ConnectionState: 'ESTABLISHED'";
-		else if( ic->getState() == TCP_STATE_FIN_FINACK )
+		}
+		else if( ic->getState() == TCP_STATE_FIN_FINACK ) {
 			printw("CLOSING");
 			ipOut << ", ConnectionState: 'CLOSING'";
-		else if( ic->getState() == TCP_STATE_CLOSED )
+		}
+		else if( ic->getState() == TCP_STATE_CLOSED ) {
 			printw("CLOSED");
 			ipOut << ", ConnectionState: 'CLOSED'";
-		else if( ic->getState() == TCP_STATE_RESET )
+		}
+		else if( ic->getState() == TCP_STATE_RESET ) {
 			printw("RESET");
 			ipOut << ", ConnectionState: 'RESET'";
+		}
 
 		move(row,58);
 		if( ic->getIdleSeconds() < 60 )
