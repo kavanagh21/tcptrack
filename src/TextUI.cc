@@ -25,6 +25,7 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <iostream>
+#include <fstream>
 #include "util.h"
 #include "defs.h"
 #include "TCPTrack.h"
@@ -229,6 +230,10 @@ void TextUI::drawui()
 {
 	int row=1;
 
+	//write the data to a file also.
+	ofstream ipOut;
+	ipOut.open ("data.json");
+
 	erase();
 
 	attron(A_REVERSE);
@@ -293,6 +298,10 @@ void TextUI::drawui()
 		printw("%s:%d", ic->dstAddr().ptr(), ic->dstPort());
 		if( ic->srcAddr().GetType() == 6 )
 			row--; 
+
+		ipOut << std::format("{{ source: '{%s:%d}', ", ic->srcAddr().ptr(), ic->srcPort() );
+
+		ipOut.close();
 
 		move(row,45);
 		printw("             ");
