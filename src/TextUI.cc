@@ -299,7 +299,7 @@ void TextUI::drawui()
 		if( ic->srcAddr().GetType() == 6 )
 			row--; 
 
-		ipOut << "Source: " << ic->srcAddr().ptr() << ":" << ic->srcPort()  );
+		ipOut << "Source: " << ic->srcAddr().ptr() << ":" << ic->srcPort();
 
 		ipOut.close();
 
