@@ -301,7 +301,7 @@ void TextUI::drawui()
 		if( ic->srcAddr().GetType() == 6 )
 			row--; 
 
-		ipOut << "SourceIP: '" << ic->srcAddr().ptr() << "', SourcePort: " << ic->srcPort() << ", TargetIP: '" << ic->dstAddr().ptr() << "', TargetPort: " << ic->dstPort();
+		ipOut << "'SourceIP': '" << ic->srcAddr().ptr() << "', 'SourcePort': " << ic->srcPort() << ", 'TargetIP': '" << ic->dstAddr().ptr() << "', 'TargetPort': " << ic->dstPort();
 
 		
 		move(row,45);
@@ -309,27 +309,27 @@ void TextUI::drawui()
 		move(row,45);
 		if( ic->getState() == TCP_STATE_SYN_SYNACK ) {
 			printw("SYN_SENT");
-			ipOut << ", ConnectionState: 'SYN_SENT'";
+			ipOut << ", 'ConnectionState': 'SYN_SENT'";
 		}
 		else if( ic->getState() == TCP_STATE_SYNACK_ACK ) {
 			printw("SYN|ACK-ACK");
-			ipOut << ", ConnectionState: 'SYNACK_ACK'";
+			ipOut << ", 'ConnectionState': 'SYNACK_ACK'";
 		}
 		else if( ic->getState() == TCP_STATE_UP ) {
 			printw("ESTABLISHED");
-			ipOut << ", ConnectionState: 'ESTABLISHED'";
+			ipOut << ", 'ConnectionState': 'ESTABLISHED'";
 		}
 		else if( ic->getState() == TCP_STATE_FIN_FINACK ) {
 			printw("CLOSING");
-			ipOut << ", ConnectionState: 'CLOSING'";
+			ipOut << ", 'ConnectionState': 'CLOSING'";
 		}
 		else if( ic->getState() == TCP_STATE_CLOSED ) {
 			printw("CLOSED");
-			ipOut << ", ConnectionState: 'CLOSED'";
+			ipOut << ", 'ConnectionState': 'CLOSED'";
 		}
 		else if( ic->getState() == TCP_STATE_RESET ) {
 			printw("RESET");
-			ipOut << ", ConnectionState: 'RESET'";
+			ipOut << ", 'ConnectionState': 'RESET'";
 		}
 
 
@@ -341,7 +341,7 @@ void TextUI::drawui()
 		else
 			printw("%dh",ic->getIdleSeconds()/3600);
 
-		ipOut << ", idleSeconds: " << ic->getIdleSeconds();
+		ipOut << ", 'idleSeconds': " << ic->getIdleSeconds();
 
 		move(row,63);
 		if( ic->activityToggle() )
