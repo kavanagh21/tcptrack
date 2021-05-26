@@ -330,6 +330,7 @@ void TextUI::drawui()
 			ipOut << ", ConnectionState: 'RESET'";
 		}
 
+
 		move(row,58);
 		if( ic->getIdleSeconds() < 60 )
 			printw("%ds",ic->getIdleSeconds());
@@ -370,6 +371,8 @@ void TextUI::drawui()
 		printw("Connections %d-%d of %d",doffset+1,ic_i,container->numConnections());
 	else 
 		printw("Connections 0-0 of 0");
+
+	ipOut.close();
 
 	move(bottom-1,46);
 	if( paused==true )
@@ -422,7 +425,7 @@ void TextUI::drawui()
 	attroff(A_REVERSE);
 	refresh();
 
-	ipOut.close();
+
 
 
 }
