@@ -26,7 +26,6 @@
 #include <signal.h>
 #include <iostream>
 #include <fstream>
-#include <format>
 #include "util.h"
 #include "defs.h"
 #include "TCPTrack.h"
@@ -300,7 +299,7 @@ void TextUI::drawui()
 		if( ic->srcAddr().GetType() == 6 )
 			row--; 
 
-		ipOut << std::format("{{ source: '{%s:%d}', ", ic->srcAddr().ptr(), ic->srcPort() );
+		ipOut << "Source: " << ic->srcAddr().ptr() << ":" << ic->srcPort()  );
 
 		ipOut.close();
 
