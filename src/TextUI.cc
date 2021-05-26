@@ -275,7 +275,7 @@ void TextUI::drawui()
 	unsigned int ic_i=0; // for scrolling
 	while( TCPConnection *ic=i->getNext() )
 	{
-
+		ipOut << "{{";
 		if( row == size_y-2 )
 			break;
 
@@ -339,6 +339,8 @@ void TextUI::drawui()
 		else
 			printw("%dh",ic->getIdleSeconds()/3600);
 
+		ipOut << ", idleSeconds: " << ic->getIdleSeconds();
+
 		move(row,63);
 		if( ic->activityToggle() )
 			printw("*");
@@ -352,6 +354,10 @@ void TextUI::drawui()
 		if( ic->srcAddr().GetType() == 6 )
 			row++;
 		row++;
+
+		//end of script end the JSON box
+		ipOut << "}}";
+
 	}
 
 	attron(A_REVERSE);
