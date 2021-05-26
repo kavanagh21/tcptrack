@@ -275,7 +275,7 @@ void TextUI::drawui()
 	unsigned int ic_i=0; // for scrolling
 	while( TCPConnection *ic=i->getNext() )
 	{
-		ipOut << "{{";
+		ipOut << "{";
 		if( row == size_y-2 )
 			break;
 
@@ -299,7 +299,7 @@ void TextUI::drawui()
 		if( ic->srcAddr().GetType() == 6 )
 			row--; 
 
-		ipOut << "SourceIP: '" << ic->srcAddr().ptr() << "', SourcePort: " << ic->srcPort();
+		ipOut << "SourceIP: '" << ic->srcAddr().ptr() << "', SourcePort: " << ic->srcPort() << ", RemoteIP: '" << ic->dstAddr().ptr() << "', RemotePort: " << ic->dstPort();
 
 		
 		move(row,45);
