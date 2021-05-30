@@ -247,7 +247,6 @@ void TextUI::drawui()
 
 	ipOut << "{ 'activeConnections' : [ ";
 
-	unsigned int ic_i=0; // for scrolling
 	while( TCPConnection *ic=i->getNext() )
 	{
 		ipOut << "{";
