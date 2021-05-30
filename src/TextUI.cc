@@ -228,36 +228,9 @@ void TextUI::displayer_run()
 
 void TextUI::drawui()
 {
-	int row=1;
-
 	//write the data to a file also.
 	ofstream ipOut;
 	ipOut.open ("data.json");
-
-	erase();
-
-	attron(A_REVERSE);
-	move(0,0);
-	printw("                                                                               ");
-
-	move(0,1);
-	printw("Client");
-	move(0,23);
-	printw("Server");
-	move(0,45);
-	printw("State");
-	move(0,58);
-	printw("Idle");
-	move(0,63);
-	printw("A");
-	move(0,65);
-	printw("Speed");
-
-	attroff(A_REVERSE);
-
-
-
-	move(1,0);
 
 	SortedIterator * i=iter;
 
@@ -278,163 +251,36 @@ void TextUI::drawui()
 	while( TCPConnection *ic=i->getNext() )
 	{
 		ipOut << "{";
-		if( row == size_y-2 )
-			break;
-
-		++ic_i;
-		if( ic_i <= doffset )
-			continue;
-
-
-		if( paused==false &&  (ic->getState() == TCP_STATE_CLOSED || ic->getState() == TCP_STATE_RESET)
-				&& time(NULL) - ic->getLastPktTimestamp() > app->remto )
-		{
-			continue;
-		}
-
-		move(row,1);
-		printw("%s:%d", ic->srcAddr().ptr(), ic->srcPort() );
-		if( ic->srcAddr().GetType() == 6 )
-			row++;
-		move(row,23);
-		printw("%s:%d", ic->dstAddr().ptr(), ic->dstPort());
-		if( ic->srcAddr().GetType() == 6 )
-			row--; 
-
 		ipOut << "'SourceIP' : '" << ic->srcAddr().ptr() << "', 'SourcePort' : '" << ic->srcPort() << "', 'TargetIP' : '" << ic->dstAddr().ptr() << "', 'TargetPort' : '" << ic->dstPort() << "'";
-
-		
-		move(row,45);
-		printw("             ");
-		move(row,45);
 		if( ic->getState() == TCP_STATE_SYN_SYNACK ) {
-			printw("SYN_SENT");
 			ipOut << ", 'ConnectionState': 'SYN_SENT'";
 		}
 		else if( ic->getState() == TCP_STATE_SYNACK_ACK ) {
-			printw("SYN|ACK-ACK");
 			ipOut << ", 'ConnectionState': 'SYNACK_ACK'";
 		}
 		else if( ic->getState() == TCP_STATE_UP ) {
-			printw("ESTABLISHED");
 			ipOut << ", 'ConnectionState': 'ESTABLISHED'";
 		}
 		else if( ic->getState() == TCP_STATE_FIN_FINACK ) {
-			printw("CLOSING");
 			ipOut << ", 'ConnectionState': 'CLOSING'";
 		}
 		else if( ic->getState() == TCP_STATE_CLOSED ) {
-			printw("CLOSED");
 			ipOut << ", 'ConnectionState': 'CLOSED'";
 		}
 		else if( ic->getState() == TCP_STATE_RESET ) {
-			printw("RESET");
 			ipOut << ", 'ConnectionState': 'RESET'";
 		}
 
-
-		move(row,58);
-		if( ic->getIdleSeconds() < 60 )
-			printw("%ds",ic->getIdleSeconds());
-		else if( ic->getIdleSeconds() < 3600 ) 
-			printw("%dm",ic->getIdleSeconds()/60);
-		else
-			printw("%dh",ic->getIdleSeconds()/3600);
-
 		ipOut << ", 'idleSeconds' : '" << ic->getIdleSeconds() << "'";
 
-		move(row,63);
-		if( ic->activityToggle() )
-			printw("*");
-		else
-			printw(" ");
-
-		move(row,65);
 		unsigned int Bps = ic->getPayloadBytesPerSecond();
-		print_bps(Bps);
 
-		if( ic->srcAddr().GetType() == 6 )
-			row++;
-		row++;
-
-		//end of script end the JSON box
 		ipOut << "},";
 
 	}
 
 	ipOut << " ]";
 	ipOut.close();
-
-	attron(A_REVERSE);
-
-	move(bottom-2,0);
-	printw("                                                                               ");
-	move(bottom-2,1);
-	printw("TOTAL");
-	move(bottom-2,65);
-	print_bps(Bps_total);
-
-	move(bottom-1,0);
-	printw("                                                                               ");
-
-	move(bottom-1,1);
-	if( container->numConnections() > 0 )
-		printw("Connections %d-%d of %d",doffset+1,ic_i,container->numConnections());
-	else 
-		printw("Connections 0-0 of 0");
-
-	move(bottom-1,46);
-	if( paused==true )
-	{
-		attron(A_UNDERLINE);
-		printw("P");
-		attroff(A_UNDERLINE);
-		printw("aused");
-	}
-	else
-	{
-		printw("Un");
-		attron(A_UNDERLINE);
-		printw("p");
-		attroff(A_UNDERLINE);
-		printw("aused");
-	}
-
-
-	move(bottom-1,56);
-	switch( sort_type )
-	{
-		case SORT_UN:
-			printw("Un");
-			attron(A_UNDERLINE);
-			printw("s");
-			attroff(A_UNDERLINE);
-			printw("orted");
-			break;
-		case SORT_RATE:
-			attron(A_UNDERLINE);
-			printw("S");
-			attroff(A_UNDERLINE);
-			printw("orted by rate");
-			break;
-		case SORT_BYTES:
-			attron(A_UNDERLINE);
-			printw("S");
-			attroff(A_UNDERLINE);
-			printw("orted by bytes");
-			break;
-       case SORT_IDLE:
-			attron(A_UNDERLINE);
-			printw("S");
-			attroff(A_UNDERLINE);
-			printw("orted by idle");
-			break;
-	}
-
-	attroff(A_REVERSE);
-	refresh();
-
-
 
 
 }
