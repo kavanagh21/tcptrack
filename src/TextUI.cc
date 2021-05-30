@@ -275,7 +275,7 @@ void TextUI::drawui()
 
 		unsigned int Bps = ic->getPayloadBytesPerSecond();
 
-		ipOut << "},";
+		ipOut << ", 'bps' : '" << Bps << "'},";
 
 	}
 
