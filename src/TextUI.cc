@@ -278,7 +278,7 @@ void TextUI::drawui()
 
 	}
 
-	ipOut << " ]";
+	ipOut << " ] }";
 	ipOut.close();
 
 
