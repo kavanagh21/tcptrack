@@ -24,6 +24,7 @@ public:
 	bool fastmode; // fastmode enabled or disabled?
 	bool detect; // detect pre-existing connections?
 	bool promisc; // enable promisc mode?
+	char *outputpath; //outputpath
 
 	// other threads call this when they have an unhandled exception.
 	// shuts tcptrack down abruptly and prints the error.

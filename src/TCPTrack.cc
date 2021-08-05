@@ -31,7 +31,8 @@ void TCPTrack::run( int argc, char **argv )
 	fastmode=cf.fastmode;
 	detect=cf.detect;
 	promisc=cf.promisc;
-
+	outputpath=cf.outputpath;
+	
 	c = new TCContainer();
 	pb = new PacketBuffer();
 	s = new Sniffer();
@@ -133,9 +134,10 @@ struct config parseopts(int argc, char **argv)
 	cf.detect=true;
 	cf.test_file=NULL;
 	cf.iface = NULL;
+	cf.outputpath = NULL;
 	bool got_iface=false;
 
-	while( (o=getopt(argc,argv,"dhvfi:pr:T:")) > 0 )
+	while( (o=getopt(argc,argv,"dhvfi:pr:T:o:")) > 0 )
 	{
 		if( o=='h' )
 		{
@@ -160,6 +162,11 @@ struct config parseopts(int argc, char **argv)
 			cf.detect=false;
 		if( o=='p' ) 
 			cf.promisc=false;
+		if( o=='o' )
+		{
+			cf.outputpath = optarg;
+			//printf("Using path: %s",cf.outputpath);
+		}
 		if( o=='T' )
 		{
 			cf.test_file=optarg;

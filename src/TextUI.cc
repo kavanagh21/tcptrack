@@ -230,7 +230,11 @@ void TextUI::drawui()
 {
 	//write the data to a file also.
 	ofstream ipOut;
-	ipOut.open ("data.json");
+	char *outputpathstr = app->outputpath;
+
+	ipOut.open (outputpathstr);
+
+	printf("path: %s \n", outputpathstr);
 
 	SortedIterator * i=iter;
 

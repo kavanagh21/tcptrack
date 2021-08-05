@@ -50,6 +50,7 @@ struct config
 	bool detect; // detect pre-existing connections?
 	bool promisc; // enable promisc mode?	        
 	char *test_file; // File to use as input data for a test
+    char *outputpath; // output path
 };
 
 struct avgstat
